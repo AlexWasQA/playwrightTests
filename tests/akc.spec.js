@@ -1,18 +1,17 @@
 import { expect, test } from '@playwright/test';
 
+test.use({
+  launchOptions: { args: ['--deny-permission-prompts'] }
+});
+
 test.describe('AKC @AKC', () => {
-  test.beforeEach(async ({ page }) => {
+  test('Search for events by botton calendar link', async ({ page }) => {
     await page.goto("https://www.akc.org/");
-    await page.waitForTimeout(10000);
+    let cookiesAcceptBtn = await page.locator("//button[@id='onetrust-accept-btn-handler']");
+    await cookiesAcceptBtn.click();
+    let eventSearchUpperLink = await page.locator("#site-header > div > div.desktop-header > div > div.utility-header > nav:nth-child(1) > a:nth-child(1)");
+    await eventSearchUpperLink.click();
+    //await page.waitForSelector("#onetrust-accept-btn-handler", { visible: true, clickable : true });
     
-  });
-  test('Search for dogs', async ({ page }) => {
-    let cookiesBtn = page.locator("//button[@id='onetrust-accept-btn-handler']");
-    cookiesBtn.click;
-    await page.waitForTimeout(10000);
-    await page.locator("//nav[@class='utility-nav']//a[@href='https://www.apps.akc.org/event-search']").click;
-    await page.waitForTimeout(10000);
-
-
 });
-});
+    });
